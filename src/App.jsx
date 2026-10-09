@@ -19,7 +19,6 @@ const projects = [
       "A personal website showcasing my profile, technical skills, education and web development work.",
     tech: ["HTML", "CSS", "JavaScript"],
     icon: "◈",
-    link: "",
   },
   {
     number: "02",
@@ -28,7 +27,6 @@ const projects = [
       "A web application for organizing and presenting portfolio information through a modern interface. Currently in development.",
     tech: ["React", "Node.js", "Express", "MongoDB"],
     icon: "✳",
-    link: "",
   },
 ];
 
@@ -47,7 +45,10 @@ function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [sent, setSent] = useState(false);
 
+  // Works with the GitHub Pages repository subpath.
   const baseUrl = import.meta.env.BASE_URL;
+  const profilePhoto = `${baseUrl}profile.jpg`;
+  const resumeFile = `${baseUrl}navya-resume.pdf`;
 
   function goToSection(id) {
     setActiveSection(id);
@@ -62,10 +63,7 @@ function App() {
     const email = data.get("email");
     const message = data.get("message");
 
-    const subject = encodeURIComponent(
-      `Portfolio enquiry from ${name}`
-    );
-
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\n${message}`
     );
@@ -78,7 +76,6 @@ function App() {
 
   return (
     <div className={lightMode ? "app light-mode" : "app"}>
-      {/* Navigation */}
       <header className="topbar">
         <a
           className="brand"
@@ -123,7 +120,7 @@ function App() {
 
           <a
             className="resume-button"
-            href={`${baseUrl}navya-resume.pdf`}
+            href={resumeFile}
             download="Navya-Resume.pdf"
           >
             ↓ <span>Download CV</span>
@@ -132,7 +129,7 @@ function App() {
       </header>
 
       <main>
-        {/* Home Section */}
+        {/* HOME */}
         <section id="home" className="hero section-wrap">
           <div className="hero-copy">
             <p className="handwritten">
@@ -155,8 +152,7 @@ function App() {
 
             <p className="hero-description">
               I build beautiful, responsive websites and explore new
-              technologies to turn ideas into meaningful digital
-              experiences.
+              technologies to turn ideas into meaningful digital experiences.
             </p>
 
             <div className="hero-actions">
@@ -216,10 +212,12 @@ function App() {
 
             <div className="photo-frame">
               <img
-                src={`${baseUrl}profile.jpg`}
+                src={profilePhoto}
                 alt="Portrait of Navya DJ"
+                className="profile-image"
                 onError={(event) => {
-                  event.currentTarget.style.display = "none";
+                  console.error("Profile image failed to load:", profilePhoto);
+                  event.currentTarget.style.visibility = "hidden";
                 }}
               />
               <span className="photo-fallback">N</span>
@@ -246,7 +244,7 @@ function App() {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* ABOUT */}
         <section id="about" className="section-wrap content-section">
           <div className="section-heading">
             <p className="eyebrow">01 / GET TO KNOW ME</p>
@@ -263,17 +261,15 @@ function App() {
               </p>
 
               <p>
-                I'm Navya DJ, currently pursuing my BCA at Nagarjuna
-                College of Management Studies. I enjoy exploring web
-                technologies, experimenting with UI design and building
-                projects that help me turn classroom knowledge into
-                practical skills.
+                I'm Navya DJ, currently pursuing my BCA at Nagarjuna College
+                of Management Studies. I enjoy exploring web technologies,
+                experimenting with UI design and building projects that help
+                me turn classroom knowledge into practical skills.
               </p>
 
               <p>
-                My goal is to grow as a developer, contribute to
-                meaningful projects and begin a rewarding career in
-                the IT industry.
+                My goal is to grow as a developer, contribute to meaningful
+                projects and begin a rewarding career in the IT industry.
               </p>
 
               <a className="text-link" href="#education">
@@ -313,7 +309,7 @@ function App() {
           </div>
         </section>
 
-        {/* Skills Section */}
+        {/* SKILLS */}
         <section id="skills" className="section-wrap content-section">
           <div className="section-heading">
             <p className="eyebrow">02 / MY TOOLKIT</p>
@@ -345,7 +341,7 @@ function App() {
           </div>
         </section>
 
-        {/* Projects Section */}
+        {/* PROJECTS */}
         <section id="projects" className="section-wrap content-section">
           <div className="section-heading heading-row">
             <div>
@@ -372,9 +368,7 @@ function App() {
                   </div>
 
                   <div className="preview-image">
-                    <span className="preview-fallback">
-                      {project.icon}
-                    </span>
+                    <span className="preview-fallback">{project.icon}</span>
                   </div>
 
                   <span className="project-number">{project.number}</span>
@@ -394,27 +388,16 @@ function App() {
                     ))}
                   </div>
 
-                  {project.link ? (
-                    <a
-                      className="text-link"
-                      href={project.link}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View project ↗
-                    </a>
-                  ) : (
-                    <span className="project-pending">
-                      Project link coming soon
-                    </span>
-                  )}
+                  <span className="project-pending">
+                    Project link coming soon
+                  </span>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        {/* Education and Experience */}
+        {/* EDUCATION */}
         <section id="education" className="section-wrap content-section">
           <div className="section-heading">
             <p className="eyebrow">04 / MY JOURNEY</p>
@@ -431,8 +414,7 @@ function App() {
                 <h3>Bachelor of Computer Applications</h3>
                 <p>Nagarjuna College of Management Studies</p>
                 <small>
-                  Learning programming, software concepts and web
-                  development.
+                  Learning programming, software concepts and web development.
                 </small>
               </div>
             </article>
@@ -444,15 +426,15 @@ function App() {
                 <h3>Web Development Intern</h3>
                 <p>Blunet IT Services · Bengaluru</p>
                 <small>
-                  Developing practical skills through coding tasks and
-                  project work.
+                  Developing practical skills through coding tasks and project
+                  work.
                 </small>
               </div>
             </article>
           </div>
         </section>
 
-        {/* Contact Section */}
+        {/* CONTACT */}
         <section id="contact" className="section-wrap content-section">
           <div className="contact-panel">
             <div className="contact-copy">
@@ -540,10 +522,7 @@ function App() {
                 />
               </label>
 
-              <button
-                className="primary-button submit-button"
-                type="submit"
-              >
+              <button className="primary-button submit-button" type="submit">
                 {sent ? "Open email again ↗" : "Send message ↗"}
               </button>
 
@@ -555,7 +534,6 @@ function App() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="footer">
         <a className="brand" href="#home">
           <span className="brand-mark">N</span>
