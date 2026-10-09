@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import "./App.css";
 
@@ -22,7 +20,6 @@ const projects = [
     tech: ["HTML", "CSS", "JavaScript"],
     icon: "◈",
     link: "",
-    image: "/student-portfolio.png",
   },
   {
     number: "02",
@@ -32,7 +29,6 @@ const projects = [
     tech: ["React", "Node.js", "Express", "MongoDB"],
     icon: "✳",
     link: "",
-    image: "/digital-portfolio.png",
   },
 ];
 
@@ -51,6 +47,13 @@ function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [sent, setSent] = useState(false);
 
+  const baseUrl = import.meta.env.BASE_URL;
+
+  function goToSection(id) {
+    setActiveSection(id);
+    setMenuOpen(false);
+  }
+
   function handleContact(event) {
     event.preventDefault();
 
@@ -59,7 +62,10 @@ function App() {
     const email = data.get("email");
     const message = data.get("message");
 
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+    const subject = encodeURIComponent(
+      `Portfolio enquiry from ${name}`
+    );
+
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\n${message}`
     );
@@ -70,13 +76,9 @@ function App() {
     setSent(true);
   }
 
-  function goToSection(id) {
-    setActiveSection(id);
-    setMenuOpen(false);
-  }
-
   return (
     <div className={lightMode ? "app light-mode" : "app"}>
+      {/* Navigation */}
       <header className="topbar">
         <a
           className="brand"
@@ -121,7 +123,7 @@ function App() {
 
           <a
             className="resume-button"
-            href="/Navya-Resume.pdf"
+            href={`${baseUrl}navya-resume.pdf`}
             download="Navya-Resume.pdf"
           >
             ↓ <span>Download CV</span>
@@ -130,6 +132,7 @@ function App() {
       </header>
 
       <main>
+        {/* Home Section */}
         <section id="home" className="hero section-wrap">
           <div className="hero-copy">
             <p className="handwritten">
@@ -146,12 +149,14 @@ function App() {
             </h1>
 
             <h2>
-              BCA Student <span className="muted">&</span> Aspiring Web Developer
+              BCA Student <span className="muted">&</span> Aspiring Web
+              Developer
             </h2>
 
             <p className="hero-description">
               I build beautiful, responsive websites and explore new
-              technologies to turn ideas into meaningful digital experiences.
+              technologies to turn ideas into meaningful digital
+              experiences.
             </p>
 
             <div className="hero-actions">
@@ -211,7 +216,7 @@ function App() {
 
             <div className="photo-frame">
               <img
-                src="/profile.jpg"
+                src={`${baseUrl}profile.jpg`}
                 alt="Portrait of Navya DJ"
                 onError={(event) => {
                   event.currentTarget.style.display = "none";
@@ -241,6 +246,7 @@ function App() {
           </div>
         </section>
 
+        {/* About Section */}
         <section id="about" className="section-wrap content-section">
           <div className="section-heading">
             <p className="eyebrow">01 / GET TO KNOW ME</p>
@@ -257,15 +263,17 @@ function App() {
               </p>
 
               <p>
-                I'm Navya DJ, currently pursuing my BCA at Nagarjuna College
-                of Management Studies. I enjoy exploring web technologies,
-                experimenting with UI design and building projects that help
-                me turn classroom knowledge into practical skills.
+                I'm Navya DJ, currently pursuing my BCA at Nagarjuna
+                College of Management Studies. I enjoy exploring web
+                technologies, experimenting with UI design and building
+                projects that help me turn classroom knowledge into
+                practical skills.
               </p>
 
               <p>
-                My goal is to grow as a developer, contribute to meaningful
-                projects and begin a rewarding career in the IT industry.
+                My goal is to grow as a developer, contribute to
+                meaningful projects and begin a rewarding career in
+                the IT industry.
               </p>
 
               <a className="text-link" href="#education">
@@ -305,6 +313,7 @@ function App() {
           </div>
         </section>
 
+        {/* Skills Section */}
         <section id="skills" className="section-wrap content-section">
           <div className="section-heading">
             <p className="eyebrow">02 / MY TOOLKIT</p>
@@ -336,6 +345,7 @@ function App() {
           </div>
         </section>
 
+        {/* Projects Section */}
         <section id="projects" className="section-wrap content-section">
           <div className="section-heading heading-row">
             <div>
@@ -362,12 +372,9 @@ function App() {
                   </div>
 
                   <div className="preview-image">
-                    <img
-                      src="/navya-personal-portfolio/profile.jpg"
-                      alt="Navya's profile"
-                      className="profile-image"
-                    />
-                    <span className="preview-fallback">{project.icon}</span>
+                    <span className="preview-fallback">
+                      {project.icon}
+                    </span>
                   </div>
 
                   <span className="project-number">{project.number}</span>
@@ -407,6 +414,7 @@ function App() {
           </div>
         </section>
 
+        {/* Education and Experience */}
         <section id="education" className="section-wrap content-section">
           <div className="section-heading">
             <p className="eyebrow">04 / MY JOURNEY</p>
@@ -423,7 +431,8 @@ function App() {
                 <h3>Bachelor of Computer Applications</h3>
                 <p>Nagarjuna College of Management Studies</p>
                 <small>
-                  Learning programming, software concepts and web development.
+                  Learning programming, software concepts and web
+                  development.
                 </small>
               </div>
             </article>
@@ -435,13 +444,15 @@ function App() {
                 <h3>Web Development Intern</h3>
                 <p>Blunet IT Services · Bengaluru</p>
                 <small>
-                  Developing practical skills through coding tasks and project work.
+                  Developing practical skills through coding tasks and
+                  project work.
                 </small>
               </div>
             </article>
           </div>
         </section>
 
+        {/* Contact Section */}
         <section id="contact" className="section-wrap content-section">
           <div className="contact-panel">
             <div className="contact-copy">
@@ -529,7 +540,10 @@ function App() {
                 />
               </label>
 
-              <button className="primary-button submit-button" type="submit">
+              <button
+                className="primary-button submit-button"
+                type="submit"
+              >
                 {sent ? "Open email again ↗" : "Send message ↗"}
               </button>
 
@@ -541,12 +555,15 @@ function App() {
         </section>
       </main>
 
+      {/* Footer */}
       <footer className="footer">
         <a className="brand" href="#home">
           <span className="brand-mark">N</span>
           Navya<span className="brand-dot">.</span>
         </a>
+
         <p>Designed & built with curiosity by Navya DJ.</p>
+
         <a href="#home" className="back-top">
           Back to top ↑
         </a>
