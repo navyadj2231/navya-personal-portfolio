@@ -363,11 +363,9 @@ function App() {
 
                   <div className="preview-image">
                     <img
-                      src={project.image}
-                      alt={`${project.title} preview`}
-                      onError={(event) => {
-                        event.currentTarget.style.display = "none";
-                      }}
+                      src="/navya-personal-portfolio/profile.jpg"
+                      alt="Navya's profile"
+                      className="profile-image"
                     />
                     <span className="preview-fallback">{project.icon}</span>
                   </div>
